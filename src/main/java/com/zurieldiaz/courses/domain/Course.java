@@ -1,4 +1,4 @@
-package com.zurieldiaz.courses.model;
+package com.zurieldiaz.courses.domain;
 
 public class Course {
 
