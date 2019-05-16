@@ -1,11 +1,23 @@
 package com.zurieldiaz.courses.domain;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="courses")
@@ -16,27 +28,45 @@ public class Course {
 	private long id;
 	
 	@NotBlank
+	@Size(max = 150)
 	private String name;
+	
+	@NotBlank
+	@Size(max = 150)
+	private String title;
 	
 	@NotBlank
 	private String description;
 	
-	@NotBlank
-	private String title;
-	
 	private double price;
+	
+	@Column(name = "published_at")
+	@CreationTimestamp
+	@Temporal(TemporalType.DATE)
+	private Date publishedAt;
+	
+	@Column(name = "is_active")
+	private boolean isActive;
+	
+	@Size(max = 20)
+	@Column(name = "level")
+	private String level;
+	
+	@ManyToOne
+	@JoinColumn(name = "teacher_id", nullable = false)
+	private User user;
+	
+	@OneToMany(mappedBy = "course")
+	private List<Purchase> purchases;
+	
+	@OneToMany(mappedBy = "course")
+	private List<Enrollment> enrollments;
+	
+	@OneToMany(mappedBy = "course")
+	private List<Review> reviews;
 	
 	public Course() {
 		
-	}
-	
-	public Course(long id, String name, String description, String title, double price) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.title = title;
-		this.price = price;
 	}
 
 	public long getId() {
@@ -77,6 +107,14 @@ public class Course {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }
