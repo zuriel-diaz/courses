@@ -39,7 +39,12 @@ public class PaymentType {
 	public PaymentType() {
 		super();
 	}
-
+	
+	public PaymentType(Long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	
 	public long getId() {
 		return id;
 	}

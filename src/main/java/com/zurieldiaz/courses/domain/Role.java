@@ -43,6 +43,11 @@ public class Role {
 		super();
 	}
 
+	public Role(String name, boolean isActive) {
+		this.name = name;
+		this.isActive = isActive;
+	}
+	
 	public long getId() {
 		return id;
 	}
