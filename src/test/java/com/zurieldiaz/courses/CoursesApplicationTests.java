@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.zurieldiaz.courses.repository.PaymentTypeRepository;
 import com.zurieldiaz.courses.repository.RoleRepository;
 
 @Transactional
@@ -20,15 +21,26 @@ import com.zurieldiaz.courses.repository.RoleRepository;
 public class CoursesApplicationTests {
 	
 	private RoleRepository roleRepository;
+	private PaymentTypeRepository paymentTypeRepository;
 	
 	@Test
 	public void validateNumberOfRoles() {
 		assertEquals(3,this.roleRepository.count());
 	}
 	
+	@Test
+	public void validateNumbersOfPaymentTypes() {
+		assertEquals(2,this.paymentTypeRepository.count());
+	}
+	
 	@Autowired
 	public void setRoleRepository(RoleRepository roleRepository) {
 		this.roleRepository = roleRepository;;
+	}
+	
+	@Autowired
+	public void setPaymentTypeRepository(PaymentTypeRepository paymentTypeRepository) {
+		this.paymentTypeRepository = paymentTypeRepository;
 	}
 	
 }
