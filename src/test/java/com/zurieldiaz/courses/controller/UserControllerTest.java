@@ -33,8 +33,6 @@ public class UserControllerTest {
 
 	private MockMvc mockMvc;
 	
-	private ObjectMapper objectMapper;
-	
 	@MockBean
 	private UserRepository userRepository;
 	
@@ -77,10 +75,5 @@ public class UserControllerTest {
 	@Autowired
 	public void setMockMvc(MockMvc mockMvc) {
 		this.mockMvc = mockMvc;
-	}
-	
-	@Autowired
-	public void setObjectMapper(ObjectMapper objectMapper) {
-		this.objectMapper = objectMapper;
 	}
 }

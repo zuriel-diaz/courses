@@ -42,7 +42,7 @@ public class Role {
 	public Role() {
 		super();
 	}
-
+	
 	public Role(String name, boolean isActive) {
 		this.name = name;
 		this.isActive = isActive;
