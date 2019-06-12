@@ -22,12 +22,12 @@ public class RoleRepositoryTests {
 	
 	@Before
 	public void setupRoleRepositoryMock() {
-		given(this.roleRepository.count()).willReturn(4L);
+		given(this.roleRepository.count()).willReturn(3L);
 	}
 	
 	@Test
 	public void verifyRolesExists() {
-		assertThat(this.roleRepository.count()).isEqualTo(4L);
+		assertThat(this.roleRepository.count()).isEqualTo(3L);
 	}
 	
 	@After

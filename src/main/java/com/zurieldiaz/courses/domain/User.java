@@ -83,6 +83,25 @@ public class User {
 		super();
 	}
 
+	public User(long id, String firstName, String lastName,
+			String genre, Date birthDate, String bio, String email,
+			String password, boolean isActive, String phoneNumber, Role role) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.genre = genre;
+		this.birthDate = birthDate;
+		this.bio = bio;
+		this.email = email;
+		this.password = password;
+		this.isActive = isActive;
+		this.phoneNumber = phoneNumber;
+		this.role = role;
+	}
+
+
+
 	public long getId() {
 		return id;
 	}

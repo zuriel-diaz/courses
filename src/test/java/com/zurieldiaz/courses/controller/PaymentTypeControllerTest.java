@@ -1,6 +1,8 @@
 package com.zurieldiaz.courses.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -12,6 +14,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zurieldiaz.courses.domain.PaymentType;
 import com.zurieldiaz.courses.repository.PaymentTypeRepository;
 
 
@@ -19,8 +23,9 @@ import com.zurieldiaz.courses.repository.PaymentTypeRepository;
 @WebMvcTest(controllers=PaymentTypeController.class)
 public class PaymentTypeControllerTest {
 
-	@Autowired
 	private MockMvc mockMvc;
+	
+	private ObjectMapper objectMapper;
 	
 	@MockBean
 	private PaymentTypeRepository paymentTypeRepository;
@@ -29,8 +34,27 @@ public class PaymentTypeControllerTest {
 	public void testPaymentTypeApi() throws Exception{
 		this.mockMvc.perform(get("/paymentTypes")
 				.contentType(MediaType.APPLICATION_JSON_UTF8))
-				.andExpect(status().isOk());
-			
+				.andDo(print())
+				.andExpect(status().isOk());			
+	}
+	
+	@Test
+	public void whenNullValueThenReturns400() throws Exception{
+		PaymentType paymentType = new PaymentType(0L, "");
+		this.mockMvc.perform(post("/paymentTypes")
+				.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+				.content(this.objectMapper.writeValueAsString(paymentType)))
+				.andExpect(status().isBadRequest());		
+	}
+	
+	@Autowired
+	public void setMockMvc(MockMvc mockMvc) {
+		this.mockMvc = mockMvc;
+	}
+	
+	@Autowired
+	public void setObjectMapper(ObjectMapper objectMapper) {
+		this.objectMapper = objectMapper;
 	}
 	
 }
