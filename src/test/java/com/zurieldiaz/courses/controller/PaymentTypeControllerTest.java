@@ -2,7 +2,6 @@ package com.zurieldiaz.courses.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -17,7 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zurieldiaz.courses.domain.PaymentType;
 import com.zurieldiaz.courses.repository.PaymentTypeRepository;
-
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers=PaymentTypeController.class)
@@ -34,7 +32,6 @@ public class PaymentTypeControllerTest {
 	public void testPaymentTypeApi() throws Exception{
 		this.mockMvc.perform(get("/paymentTypes")
 				.contentType(MediaType.APPLICATION_JSON_UTF8))
-				.andDo(print())
 				.andExpect(status().isOk());			
 	}
 	

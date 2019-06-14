@@ -7,7 +7,9 @@ import javax.transaction.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,7 +19,8 @@ import com.zurieldiaz.courses.repository.RoleRepository;
 @Transactional
 @Sql(scripts = "classpath:/test-data.sql")
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataJpaTest
+@AutoConfigureTestDatabase(replace=Replace.NONE)
 public class CoursesApplicationTests {
 	
 	private RoleRepository roleRepository;
@@ -42,5 +45,4 @@ public class CoursesApplicationTests {
 	public void setPaymentTypeRepository(PaymentTypeRepository paymentTypeRepository) {
 		this.paymentTypeRepository = paymentTypeRepository;
 	}
-	
 }

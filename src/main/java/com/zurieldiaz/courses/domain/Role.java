@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,6 +26,7 @@ public class Role {
 	private long id;
 	
 	@NotNull
+	@NotEmpty
 	@Size(max = 70)
 	private String name;
 	
@@ -41,11 +43,6 @@ public class Role {
 	
 	public Role() {
 		super();
-	}
-	
-	public Role(String name, boolean isActive) {
-		this.name = name;
-		this.isActive = isActive;
 	}
 	
 	public long getId() {

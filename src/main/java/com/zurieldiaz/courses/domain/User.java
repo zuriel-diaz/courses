@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -45,6 +46,8 @@ public class User {
 	private String bio;
 	
 	@Size(max = 150)
+	@NotNull
+	@NotEmpty
 	private String email;
 	
 	@Size(max = 200)
