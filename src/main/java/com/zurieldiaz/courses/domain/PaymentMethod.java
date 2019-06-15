@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,14 +28,17 @@ public class PaymentMethod {
 	private long id;
 	
 	@NotNull
+	@NotEmpty
 	@Size(max = 20)
 	private String clabe;
 	
 	@NotNull
+	@NotEmpty
 	@Size(max = 20)
 	private String cardNumber;
 	
 	@NotNull
+	@NotEmpty
 	@Size(max = 140)
 	private String cardHolderName;
 	
@@ -46,10 +50,12 @@ public class PaymentMethod {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt; 
 	
+	@NotNull
 	@OneToOne
 	@JoinColumn(name = "payment_type_id", nullable = false)
 	private PaymentType paymentType;
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;

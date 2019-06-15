@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "addresses")
@@ -17,17 +19,22 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@NotEmpty
 	private String country;
 	
+	@NotEmpty
 	private String state;
 	
+	@NotEmpty
 	private String city;
 	
 	private String suburb;
 	
+	@NotEmpty
 	@Column(name = "zipcode")
 	private String zipCode;
 	
+	@NotEmpty
 	private String street;
 	
 	@Column(name = "external_number")
@@ -36,6 +43,7 @@ public class Address {
 	@Column(name = "internal_number")
 	private int internalNumber;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
