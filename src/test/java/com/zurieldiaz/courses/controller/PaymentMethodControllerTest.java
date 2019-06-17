@@ -1,14 +1,19 @@
 package com.zurieldiaz.courses.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -56,6 +61,13 @@ public class PaymentMethodControllerTest {
 		this.user.setRole(role);
 		this.paymentMethod.setUser(user);
 		this.paymentMethod.setPaymentType(paymentType);
+		
+		ArrayList<PaymentMethod> paymentMethods = new ArrayList<>();
+		paymentMethods.add(paymentMethod);
+		
+		Mockito.when(this.paymentMethodRepository.findById(this.paymentMethod.getId())).thenReturn(Optional.of(this.paymentMethod));
+		Mockito.when(this.userRepository.findById(this.user.getId())).thenReturn(Optional.of(this.user));
+		Mockito.when(this.paymentMethodRepository.findByUserId(this.user.getId())).thenReturn(paymentMethods);
 	}
 	
 	@Test
@@ -67,9 +79,19 @@ public class PaymentMethodControllerTest {
 				.andExpect(status().isOk());
 	}
 	
+	@Test
+	public void verifyRetrieveAllPaymentMethodsByUser() throws Exception {
+		this.mockMvc.perform(
+				get("/users/{userId}/paymentMethods",this.user.getId())
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+				.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$").isArray());
+	}
 	
 	private PaymentMethod createPaymentMethod() {
 		PaymentMethod paymentMethod = new PaymentMethod();
+		paymentMethod.setId(1L);
 		paymentMethod.setClabe("123412341234123456");
 		paymentMethod.setCardNumber("1234123443214321");
 		paymentMethod.setCardHolderName("Guerrero Azteca");

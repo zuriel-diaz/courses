@@ -9,7 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "addresses")
@@ -43,7 +42,6 @@ public class Address {
 	@Column(name = "internal_number")
 	private int internalNumber;
 	
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
